@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor Eterno</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #4b0082, #000000); /* Degradê de roxo para preto */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            position: relative; /* Para permitir que a imagem de fundo seja colocada atrás */
+        }
+
+        /* Imagem de fundo com corações */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/core.png'); /* Caminho da imagem de corações */
+            background-size: cover;
+            background-position: center;
+            z-index: -1; /* Coloca a imagem atrás de todo o conteúdo */
+            opacity: 0.5; /* Deixa a imagem mais suave */
+        }
+
+        .galeria {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .galeria img {
+            width: 100%;
+            max-width: 400px;
+            max-height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .botoes button {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .botoes button:hover {
+            background-color: #800080;
+        }
+
+        .frase {
+            background-color: rgba(75, 0, 130, 0.7); /* Fundo roxo translúcido */
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .frase span {
+            font-size: 24px;
+            color: #800080; /* Destaca o coração */
+        }
+
+        .cronometro {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto translúcido */
+            padding: 20px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cronometro h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .unidade {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .valor {
+            font-size: 32px;
+            font-weight: bold;
+            color: #800080;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Galeria de Imagens -->
+    <div class="galeria">
+        <img id="imagem" src="images/Amor1.jpg" alt="Imagem 1">
+        <div class="botoes">
+            <button id="anterior">Anterior</button>
+            <button id="proximo">Próximo</button>
+        </div>
+    </div>
+
+    <!-- Frase de amor -->
+    <div class="frase">
+        Que nosso amor seja eterno, e que cada segundo ao seu lado dure uma eternidade, 
+        porque amo estar com você e amo você por completo. <span>❤️</span>
+    </div>
+
+    <!-- Cronômetro -->
+    <div class="cronometro">
+        <h1>Tempo de Nós</h1>
+        <div class="unidade">
+            <span id="anos" class="valor">0</span>
+            <span>anos</span>
+        </div>
+        <div class="unidade">
+            <span id="meses" class="valor">0</span>
+            <span>meses</span>
+        </div>
+        <div class="unidade">
+            <span id="dias" class="valor">0</span>
+            <span>dias</span>
+        </div>
+        <div class="unidade">
+            <span id="horas" class="valor">0</span>
+            <span>horas</span>
+        </div>
+        <div class="unidade">
+            <span id="minutos" class="valor">0</span>
+            <span>minutos</span>
+        </div>
+        <div class="unidade">
+            <span id="segundos" class="valor">0</span>
+            <span>segundos</span>
+        </div>
+    </div>
+
+    <script>
+        // Caminho das imagens
+        const imagens = [
+            "images/Amor1.jpg",
+            "images/Amor2.jpg",
+            "images/Amor3.jpg",
+            "images/Amor4.jpg"
+        ];
+
+        // Índice inicial da galeria
+        let indiceAtual = 0;
+
+        // Elementos do DOM
+        const imagemElement = document.getElementById("imagem");
+        const botaoAnterior = document.getElementById("anterior");
+        const botaoProximo = document.getElementById("proximo");
+
+        // Função para atualizar a imagem exibida
+        const atualizarImagem = () => {
+            imagemElement.src = imagens[indiceAtual];
+            imagemElement.alt = `Imagem ${indiceAtual + 1}`;
+        };
+
+        // Event listener para o botão "Anterior"
+        botaoAnterior.addEventListener("click", () => {
+            indiceAtual = (indiceAtual - 1 + imagens.length) % imagens.length;
+            atualizarImagem();
+        });
+
+        // Event listener para o botão "Próximo"
+        botaoProximo.addEventListener("click", () => {
+            indiceAtual = (indiceAtual + 1) % imagens.length;
+            atualizarImagem();
+        });
+
+        // Cronômetro
+        const dataInicio = new Date('2024-11-03T00:00:00'); // Data de início
+
+        const atualizacaoCronometro = () => {
+            const agora = new Date();
+            const tempo = agora - dataInicio;
+
+            const anos = Math.floor(tempo / (365 * 24 * 60 * 60 * 1000));
+            const meses = Math.floor((tempo % (365 * 24 * 60 * 60 * 1000)) / (30 * 24 * 60 * 60 * 1000));
+            const dias = Math.floor((tempo % (30 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+            const horas = Math.floor((tempo % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+            const minutos = Math.floor((tempo % (60 * 60 * 1000)) / (60 * 1000));
+            const segundos = Math.floor((tempo % (60 * 1000)) / 1000);
+
+            document.getElementById("anos").textContent = anos;
+            document.getElementById("meses").textContent = meses;
+            document.getElementById("dias").textContent = dias;
+            document.getElementById("horas").textContent = horas;
+            document.getElementById("minutos").textContent = minutos;
+            document.getElementById("segundos").textContent = segundos;
+        };
+
+        // Atualiza o cronômetro a cada segundo
+        setInterval(atualizacaoCronometro, 1000);
+    </script>
+</body>
+</html>
